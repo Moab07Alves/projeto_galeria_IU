@@ -16,7 +16,7 @@ public class GuiTelaComFoto extends JFrame{
     private JLabel lbDescricao;
     private JLabel lbData;
     private JLabel lbimagem;
-    private ImagemIcon imagem;
+    private ImageIcon imagem;
     private JButton jbvoltar;
 
     public GuiTelaComFoto(Galeria galeria, String descricao, String data, String caminhaFoto) {
@@ -26,6 +26,7 @@ public class GuiTelaComFoto extends JFrame{
     }
 
     public void inicializarComponentes(String descricao, String data, String caminhoFoto) {
+        setTitle("Foto selecionada");
         setBounds(0, 0, 800, 600);
         setLayout(null);
         painel = new JPanel();
@@ -39,6 +40,10 @@ public class GuiTelaComFoto extends JFrame{
         lbData.setFont(new Font("Arial", Font.BOLD, 15));
         jbvoltar = new JButton("Voltar");
         jbvoltar.setBounds(325, 525, 100, 25);
+        imagem = new ImageIcon(caminhoFoto);
+        lbimagem = new JLabel(imagem);
+        lbimagem.setBounds(0, 0, 800, 600);
+        painel.add(lbimagem);
         painel.add(jbvoltar);
         painel.add(lbDescricao);
         painel.add(lbData);

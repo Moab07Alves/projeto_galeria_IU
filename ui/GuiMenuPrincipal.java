@@ -16,8 +16,8 @@ public class GuiMenuPrincipal extends JFrame{
     private Usuario usuario;
     private Container contentPane;
     private JMenuBar mnBarra;
-    private JMenu mnArquivo, mnExemplos;
-    private JMenuItem miSair, miBotao;
+    private JMenu mnConfig;
+    private JMenuItem miSair;
     private JPanel jpOpcoes;
     private JButton[] botoesOpcoes = new JButton[6];
 
@@ -32,17 +32,13 @@ public class GuiMenuPrincipal extends JFrame{
         setBounds(0, 0, 425, 315);
         contentPane = getContentPane();
         mnBarra = new JMenuBar();
-        mnArquivo = new JMenu("Arquivo");
-        mnArquivo.setMnemonic('A');
-        mnExemplos = new JMenu("Exemplos");
-        mnExemplos.setMnemonic('E');
-        miSair = new JMenuItem("Sair", new ImageIcon("sair.png"));
+        mnConfig = new JMenu("Opções");
+        mnConfig.setMnemonic('O');
+        miSair = new JMenuItem("Sair");
         miSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
-        miBotao = new JMenuItem("Botao");
-        mnArquivo.add(miSair);
-        mnExemplos.add(miBotao);
-        mnBarra.add(mnArquivo);
-        mnBarra.add(mnExemplos);
+
+        mnConfig.add(miSair);
+        mnBarra.add(mnConfig);
         jpOpcoes = new JPanel();
         int x = getX() + 5;
         int y = getY();
@@ -76,31 +72,25 @@ public class GuiMenuPrincipal extends JFrame{
             }
         });
 
-        miBotao.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        }); 
-
         botoesOpcoes[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 GuiCriarGaleria guiCriarGaleria = new GuiCriarGaleria(usuario);
                 guiCriarGaleria.run();
-                setVisible(false);
+                dispose();
             }
         });
 
         botoesOpcoes[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(usuario.getGaleria() != null) {
-                    String nomeGaleria = JOptionPane.showInputDialog(null, usuario.getGaleria() + "Qual galeria você escolhe para adicionar a foto: ");
-                    Galeria gale = usuario.procurarGaleriaPorTitulo(nomeGaleria);
+                    GuiSelecionarGaleria telaSelecionarGaleria = new GuiSelecionarGaleria(usuario);
+                    Galeria galeriaEscolhida = telaSelecionarGaleria.galeriaEscolhida();
                     File fotoEscolhida = mostrarEscolhaFoto();
                     String descricao = JOptionPane.showInputDialog(null, "Digite qual a descrição da foto");
                     String data = JOptionPane.showInputDialog(null, "Digite qual a data que a foto foi tirada?");
-                    JOptionPane.showMessageDialog(null, "", "Descrição: " + descricao  + " Data: " + data, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(fotoEscolhida.getAbsolutePath()));
-                    Foto novaFoto = new Foto(gale, descricao, data, fotoEscolhida.getAbsolutePath());
-                    gale.adicionarFoto(novaFoto);
+                    GuiTelaComFoto telaComFoto = new GuiTelaComFoto(galeriaEscolhida, descricao, data, fotoEscolhida.getPath());
+                    telaComFoto.run();
+                    galeriaEscolhida.adicionarFoto(new Foto(galeriaEscolhida, descricao, data, fotoEscolhida.getPath()));
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "O usuário não possui nenhuma galeria");

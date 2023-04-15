@@ -51,11 +51,11 @@ public class GuiCriarGaleria extends JFrame{
                 if(nomeGaleria.equals(null) || nomeGaleria.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "ERRO! O nome da galeria não foi inserido\n\n\tTENTE NOVAMENTE");
                     menu.run();
-                    setVisible(false);
+                    dispose();
                 }else {
                     adicionarGaleriaUsuario(nomeGaleria);
                     menu.run();
-                    setVisible(false);
+                    dispose();
                 }
             }
         });
@@ -63,7 +63,7 @@ public class GuiCriarGaleria extends JFrame{
         btCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 menu.run();
-                setVisible(false);
+                dispose();
             }
         });
     }
