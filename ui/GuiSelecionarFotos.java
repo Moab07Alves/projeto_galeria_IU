@@ -21,6 +21,7 @@ public class GuiSelecionarFotos extends JFrame{
     private JLabel lbImagem;
     private Galeria galeria;
     private JButton jbabir;
+    private Foto fotoSelecionda;
 
     public GuiSelecionarFotos(Galeria galeria) {
         this.galeria = galeria;
@@ -56,18 +57,20 @@ public class GuiSelecionarFotos extends JFrame{
     private void definirEventos() {
         lsFotos.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                Foto foto = galeria.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());
+                fotoSelecionda = galeria.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());
+                Foto foto = galeria.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());;
                 imagem1 = new ImageIcon(foto.getCaminhoFoto());
                 lbImagem.setIcon(imagem1);
                 jbabir.setVisible(true);
 
-                jbabir.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        GuiTelaComFoto telaFoto = new GuiTelaComFoto(galeria, foto.getDescricao(), foto.getDataFoto(), foto.getCaminhoFoto());
-                        telaFoto.run();
-                        dispose();
-                    }
-                });
+            }
+        });
+
+        jbabir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GuiTelaComFoto telaFoto = new GuiTelaComFoto(galeria, fotoSelecionda.getDescricao(), fotoSelecionda.getDataFoto(), fotoSelecionda.getCaminhoFoto());
+                telaFoto.run();
+                dispose();
             }
         });  
     }
