@@ -4,8 +4,11 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+import entities.Usuario;
+
 public class GuiLogin extends JFrame {
     
+    private Usuario usuario;
     private JTextField tfLogin;
     private JLabel lbSenha;
     private JLabel lbLogin;
@@ -47,9 +50,10 @@ public class GuiLogin extends JFrame {
         btLogar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 String senha = String.valueOf(pfSenha.getPassword());
+                String login = String.valueOf(tfLogin.getText());
                 if(tfLogin.getText().equals("java8") && senha.equals("java8")) {
                     setVisible(false);
-                    GuiMenuPrincipal menu = new GuiMenuPrincipal();
+                    GuiMenuPrincipal menu = new GuiMenuPrincipal(criarUsuario(login, senha));
                     menu.run();
                 } else {
             JOptionPane.showMessageDialog(null, "Login ou Senha incorretas!");
@@ -69,7 +73,13 @@ public class GuiLogin extends JFrame {
         setResizable(false);
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - getSize().width) / 2, (tela.height - getSize().height) / 2);
+        setLocationRelativeTo(null);
         setVisible(true);  
+    }
+
+    private Usuario criarUsuario(String login, String senha) {
+        this.usuario = new Usuario(login, senha);
+        return this.usuario;
     }
 
 }

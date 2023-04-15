@@ -78,6 +78,10 @@ public class Usuario{
         return null;
     }
 
+    public List<Galeria> todaGalerias() {
+        return this.galerias;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

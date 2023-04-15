@@ -44,13 +44,19 @@ public class GuiCriarGaleria extends JFrame{
     }
 
     private void definirEventos() {
-        GuiMenuPrincipal menu = new GuiMenuPrincipal();
-
+        GuiMenuPrincipal menu = new GuiMenuPrincipal(this.usuario);
         btCriar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                usuario.criarGaleria(new Galeria(usuario, tfnomeGaleria.getText()));
-                setVisible(false);
-                menu.run();
+                String nomeGaleria = String.valueOf(tfnomeGaleria.getText());
+                if(nomeGaleria.equals(null) || nomeGaleria.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "ERRO! O nome da galeria não foi inserido\n\n\tTENTE NOVAMENTE");
+                    menu.run();
+                    setVisible(false);
+                }else {
+                    adicionarGaleriaUsuario(nomeGaleria);
+                    menu.run();
+                    setVisible(false);
+                }
             }
         });
 
@@ -66,7 +72,13 @@ public class GuiCriarGaleria extends JFrame{
         setResizable(false);        
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - getSize().width) / 2, (tela.height - getSize().height) / 2);
+        setLocationRelativeTo(null);
         setVisible(true);  
     }
+
+    private void adicionarGaleriaUsuario(String nomeGaleria){
+        this.usuario.criarGaleria(new Galeria(this.usuario, nomeGaleria));
+    }
+
 
 }

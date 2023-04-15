@@ -1,7 +1,10 @@
 package entities;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import persistence.GravadorDeDados;
 
 public class Galeria {
     
@@ -9,6 +12,7 @@ public class Galeria {
     private String tituloGaleria;
     private int quantidadeFotos;
     private List<Foto> fotos;
+    private GravadorDeDados gravador = new GravadorDeDados(tituloGaleria + ".txt");
 
     public Galeria(Usuario usuario, String tituloGaleria) {
         this.usuario = usuario;
@@ -41,6 +45,33 @@ public class Galeria {
     public void removerFoto(Foto foto) {
         this.fotos.remove(foto);
     }
+
+    public void salvarFotos() throws IOException {
+        List<String> dadosFotos = new ArrayList<>();
+        for (Foto foto: this.fotos) {
+            dadosFotos.add(foto.getDescricao() + "#" + foto.getDataFoto() + "#" + foto.getCaminhoFoto());
+        }
+        gravador.gravaTextoEmArquivo(dadosFotos);
+     }
+ 
+     public void recuperarFotos() throws IOException {
+         List<String> dadosFotos = gravador.recuperarTextoDeArquivo();
+         for (String dados: dadosFotos) {
+             String[] linha = dados.split("#");
+             Foto foto = new Foto(this, linha[0], linha[1], linha[2]);
+             this.fotos.add(foto);
+         }
+     }
+
+     //Tratamento de excessão
+     public Foto pesquisarFotoDescricao(String descricao){
+        for (Foto foto : this.fotos) {
+            if(foto.getDescricao().equals(descricao)) {
+                return foto;
+            }
+        }
+        return null;
+     }
 
     @Override
     public int hashCode() {

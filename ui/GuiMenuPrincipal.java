@@ -21,14 +21,15 @@ public class GuiMenuPrincipal extends JFrame{
     private JPanel jpOpcoes;
     private JButton[] botoesOpcoes = new JButton[6];
 
-    public GuiMenuPrincipal () {
+    public GuiMenuPrincipal (Usuario usuario) {
+        this.usuario = usuario;
         inicializarComponentes();
         definirEventos();
     }
 
     private void inicializarComponentes (){
         setTitle("Menu Principal");
-        setBounds(0, 0, 800, 600);
+        setBounds(0, 0, 425, 315);
         contentPane = getContentPane();
         mnBarra = new JMenuBar();
         mnArquivo = new JMenu("Arquivo");
@@ -43,21 +44,21 @@ public class GuiMenuPrincipal extends JFrame{
         mnBarra.add(mnArquivo);
         mnBarra.add(mnExemplos);
         jpOpcoes = new JPanel();
-        int x = getX() + 200;
+        int x = getX() + 5;
         int y = getY();
         jpOpcoes.setLayout(null);
         botoesOpcoes[0] = new JButton("1- Criar galeria");
-        botoesOpcoes[0].setBounds(x, y+40, 400, 35);
+        botoesOpcoes[0].setBounds(x, y+10, 400, 35);
         botoesOpcoes[1] = new JButton("2- Adicionar foto");
-        botoesOpcoes[1].setBounds(x, y+100, 400, 35);
+        botoesOpcoes[1].setBounds(x, y+50, 400, 35);
         botoesOpcoes[2] = new JButton("3- Remover foto");
-        botoesOpcoes[2].setBounds(x, y+160, 400, 35);
+        botoesOpcoes[2].setBounds(x, y+90, 400, 35);
         botoesOpcoes[3] = new JButton("4- Ver fotos");
-        botoesOpcoes[3].setBounds(x, y+220, 400, 35);
+        botoesOpcoes[3].setBounds(x, y+130, 400, 35);
         botoesOpcoes[4] = new JButton("5- Procurar foto por data");
-        botoesOpcoes[4].setBounds(x, y+280, 400, 35);
+        botoesOpcoes[4].setBounds(x, y+170, 400, 35);
         botoesOpcoes[5] = new JButton("6- Procurar foto por filho");
-        botoesOpcoes[5].setBounds(x, y+340, 400, 35);
+        botoesOpcoes[5].setBounds(x, y+210, 400, 35);
         jpOpcoes.add(botoesOpcoes[0]);
         jpOpcoes.add(botoesOpcoes[1]);
         jpOpcoes.add(botoesOpcoes[2]);
@@ -138,6 +139,7 @@ public class GuiMenuPrincipal extends JFrame{
         setResizable(false);
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - getSize().width) / 2, (tela.height - getSize().height) / 2);
+        setLocationRelativeTo(null);
         setVisible(true);  
     }
 
