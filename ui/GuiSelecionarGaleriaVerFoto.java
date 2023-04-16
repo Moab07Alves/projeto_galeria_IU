@@ -3,16 +3,18 @@ package ui;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import entities.Galeria;
 import entities.Usuario;
 
-public class GuiSelecionarGaleria extends JFrame{
+public class GuiSelecionarGaleriaVerFoto extends JFrame{
 
     private Galeria galeriaSelecionada;
     private JPanel painel;
@@ -23,7 +25,7 @@ public class GuiSelecionarGaleria extends JFrame{
     private JButton jbEscolher;
     private JButton jbVoltar;
 
-    public GuiSelecionarGaleria(Usuario usuario) {
+    public GuiSelecionarGaleriaVerFoto(Usuario usuario) {
         this.usuario = usuario;
         incializarComponentes(usuario.todaGalerias());
         definirEventos();
@@ -63,7 +65,9 @@ public class GuiSelecionarGaleria extends JFrame{
         
         jbEscolher.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "A galeria escolhida foi " + galeriaSelecionada.getTituloGaleria());
+                GuiSelecionarFotos telaVerFotos = new GuiSelecionarFotos(usuario, galeriaSelecionada);
+                telaVerFotos.run();
+                dispose();
             }
         });
 
@@ -85,6 +89,19 @@ public class GuiSelecionarGaleria extends JFrame{
 
     public Galeria galeriaEscolhida() {
         return this.galeriaSelecionada;
+    }
+
+    public static File mostrarEscolhaFoto() {
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Arquivos de Imagem", "jpg", "jpeg", "png", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File arquivoSelecionado = chooser.getSelectedFile();
+            return arquivoSelecionado;
+        }
+        return null;
     }
 
 }

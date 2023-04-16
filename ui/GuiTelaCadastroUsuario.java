@@ -56,7 +56,7 @@ public class GuiTelaCadastroUsuario extends JFrame {
                 String senha = String.valueOf(pfSenha.getPassword());
                 String login = String.valueOf(tfLogin.getText());
                 criarUsuario(login, senha);
-                if(gerenciador.verificarPessoa(usuario)){
+                if(gerenciador.verificarPessoa(login, senha)){
                     JOptionPane.showMessageDialog(null, "Login de usuário já cadastrado, escolha outro nome de usuário");
                     GuiTelaCadastroUsuario telaCadastroUsuario = new GuiTelaCadastroUsuario(gerenciador);
                     telaCadastroUsuario.run();
@@ -91,9 +91,8 @@ public class GuiTelaCadastroUsuario extends JFrame {
         setVisible(true);  
     }
 
-    private Usuario criarUsuario(String login, String senha) {
+    private void criarUsuario(String login, String senha) {
         this.usuario = new Usuario(login, senha);
-        return this.usuario;
     }
 
     public Usuario getUsuario() {

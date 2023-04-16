@@ -53,8 +53,8 @@ public class GuiLogin extends JFrame {
             public void actionPerformed(ActionEvent e){
                 String senha = String.valueOf(pfSenha.getPassword());
                 String login = String.valueOf(tfLogin.getText());
-                if(gerenciador.verificarPessoa(usuario)) {
-                    GuiMenuPrincipal menu = new GuiMenuPrincipal(criarUsuario(login, senha));
+                if(gerenciador.verificarPessoa(login, senha)) {
+                    GuiMenuPrincipal menu = new GuiMenuPrincipal(usuario);
                     menu.run();
                     dispose();
                 }
@@ -83,9 +83,8 @@ public class GuiLogin extends JFrame {
         setVisible(true);  
     }
 
-    private Usuario criarUsuario(String login, String senha) {
+    private void criarUsuario(String login, String senha) {
         this.usuario = new Usuario(login, senha);
-        return this.usuario;
     }
 
     public Usuario getUsuario() {

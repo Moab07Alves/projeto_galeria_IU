@@ -63,7 +63,11 @@ public class Usuario{
     }
 
     public void registrarFoto(Galeria galeria, Foto foto) {
-        galeria.adicionarFoto(foto);
+        for (Galeria gale: this.galerias) {
+            if (gale.equals(galeria)) {
+                gale.adicionarFoto(foto);
+            }
+        }
     }
 
     public void excluirFoto(Galeria galeria, Foto foto) {

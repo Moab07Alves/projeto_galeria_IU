@@ -13,6 +13,7 @@ import entities.Usuario;
 
 public class GuiSelecionarFotos extends JFrame{
     
+    private Usuario usuario;
     private JPanel telaFotos; 
     private JList lsFotos;
     private DefaultListModel dlm;
@@ -21,9 +22,10 @@ public class GuiSelecionarFotos extends JFrame{
     private JLabel lbImagem;
     private Galeria galeria;
     private JButton jbabir;
+    private JButton jbVoltar;
     private Foto fotoSelecionda;
 
-    public GuiSelecionarFotos(Galeria galeria) {
+    public GuiSelecionarFotos(Usuario usuario, Galeria galeria) {
         this.galeria = galeria;
         incializarComponentes(galeria);
         definirEventos();
@@ -48,16 +50,21 @@ public class GuiSelecionarFotos extends JFrame{
         jbabir = new JButton("Abrir foto");
         jbabir.setBounds(350, 245, 100, 25);
         jbabir.setVisible(false);
+        jbabir.setBounds(420, 245, 100, 25);
+        jbVoltar = new JButton("Voltar");
+        jbVoltar.setBounds(280, 245, 100, 25);
         telaFotos.add(jbabir);
         telaFotos.add(sp);
         telaFotos.add(lbImagem);
+        telaFotos.add(jbVoltar);
         add(telaFotos);
     }
 
     private void definirEventos() {
+        Galeria galeriaUsuario = usuario.procurarGaleriaPorTitulo(galeria.getTituloGaleria());
         lsFotos.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                fotoSelecionda = galeria.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());
+                fotoSelecionda = galeriaUsuario.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());
                 Foto foto = galeria.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());;
                 imagem1 = new ImageIcon(foto.getCaminhoFoto());
                 lbImagem.setIcon(imagem1);
@@ -68,11 +75,19 @@ public class GuiSelecionarFotos extends JFrame{
 
         jbabir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GuiTelaComFoto telaFoto = new GuiTelaComFoto(galeria, fotoSelecionda.getDescricao(), fotoSelecionda.getDataFoto(), fotoSelecionda.getCaminhoFoto());
+                GuiTelaComFoto telaFoto = new GuiTelaComFoto(usuario, galeria, fotoSelecionda.getDescricao(), fotoSelecionda.getDataFoto(), fotoSelecionda.getCaminhoFoto());
                 telaFoto.run();
                 dispose();
             }
         });  
+
+        jbVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GuiSelecionarGaleriaVerFoto telaGalerias = new GuiSelecionarGaleriaVerFoto(usuario);
+                telaGalerias.run();
+                dispose();
+            }
+        });
     }
 
 

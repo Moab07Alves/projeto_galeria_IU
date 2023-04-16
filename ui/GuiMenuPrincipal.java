@@ -7,6 +7,7 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controller.GerenciadorUsuarios;
 import entities.Foto;
 import entities.Galeria;
 import entities.Usuario;
@@ -83,14 +84,9 @@ public class GuiMenuPrincipal extends JFrame{
         botoesOpcoes[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(usuario.getGaleria() != null) {
-                    GuiSelecionarGaleria telaSelecionarGaleria = new GuiSelecionarGaleria(usuario);
-                    Galeria galeriaEscolhida = telaSelecionarGaleria.galeriaEscolhida();
-                    File fotoEscolhida = mostrarEscolhaFoto();
-                    String descricao = JOptionPane.showInputDialog(null, "Digite qual a descrição da foto");
-                    String data = JOptionPane.showInputDialog(null, "Digite qual a data que a foto foi tirada?");
-                    GuiTelaComFoto telaComFoto = new GuiTelaComFoto(galeriaEscolhida, descricao, data, fotoEscolhida.getPath());
-                    telaComFoto.run();
-                    galeriaEscolhida.adicionarFoto(new Foto(galeriaEscolhida, descricao, data, fotoEscolhida.getPath()));
+                    GuiSelecionarGaleriaAdiconarFoto telaSelecionarGaleria = new GuiSelecionarGaleriaAdiconarFoto(usuario);
+                    telaSelecionarGaleria.run();
+                    dispose();
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "O usuário não possui nenhuma galeria");
@@ -106,7 +102,9 @@ public class GuiMenuPrincipal extends JFrame{
 
         botoesOpcoes[3].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+               GuiSelecionarGaleriaVerFoto tela = new GuiSelecionarGaleriaVerFoto(usuario);
+               tela.run();
+               dispose();
             }
         });
 
@@ -131,19 +129,6 @@ public class GuiMenuPrincipal extends JFrame{
         setLocation((tela.width - getSize().width) / 2, (tela.height - getSize().height) / 2);
         setLocationRelativeTo(null);
         setVisible(true);  
-    }
-
-    public static File mostrarEscolhaFoto() {
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Arquivos de Imagem", "jpg", "jpeg", "png", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File arquivoSelecionado = chooser.getSelectedFile();
-            return arquivoSelecionado;
-        }
-        return null;
     }
 
 }

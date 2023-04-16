@@ -16,13 +16,24 @@ public class GerenciadorUsuarios{
         gravador = new GravadorDeDados("usuarios.txt");
     }
     
+    public Usuario getUsuario(Usuario usuario) {
+        for(Usuario usu: this.usuarios) {
+            if (usu.equals(usuario)) {
+                return usu;
+            }
+        }
+        return null;
+    }
+
     public void cadastarUsuario(Usuario usuario) {
         this.usuarios.add(usuario);
     }
 
-    public boolean verificarPessoa(Usuario usuarioCadstrado) {
-        if (this.usuarios.contains(usuarioCadstrado)) {
-            return true;
+    public boolean verificarPessoa(String login, String senha) {
+        for(Usuario usuario: this.usuarios) {
+            if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
+                return true;
+            }
         }
         return false;
     }
@@ -38,12 +49,13 @@ public class GerenciadorUsuarios{
 
     public void recuperarPessoas() throws IOException {
         List<String> texto = gravador.recuperarTextoDeArquivo();
-        String[] array = new String[3];
-        if(texto.size() > 1)
-            for (String a : texto) {
-                array = a.split("#");
-                usuarios.add(new Usuario(array[0], array[1]));
+        String[] array = new String[2];
+        if(texto.size() > 1){
+            for (String dadosUsuario : texto) {
+                array = dadosUsuario.split("#");
+                this.usuarios.add(new Usuario(array[0], array[1]));
             }
+        }
     }
     
 }

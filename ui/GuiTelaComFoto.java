@@ -3,14 +3,15 @@ package ui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.channels.Pipe;
 
 import javax.swing.*;
 
 import entities.Galeria;
+import entities.Usuario;
 
 public class GuiTelaComFoto extends JFrame{
     
+    private Usuario usuario;
     private Galeria galeria;
     private JPanel painel;
     private JLabel lbDescricao;
@@ -19,7 +20,8 @@ public class GuiTelaComFoto extends JFrame{
     private ImageIcon imagem;
     private JButton jbvoltar;
 
-    public GuiTelaComFoto(Galeria galeria, String descricao, String data, String caminhaFoto) {
+    public GuiTelaComFoto(Usuario usuario, Galeria galeria, String descricao, String data, String caminhaFoto) {
+        this.usuario = usuario;
         this.galeria = galeria;
         inicializarComponentes(descricao, data, caminhaFoto);
         definirEventos();
@@ -53,7 +55,7 @@ public class GuiTelaComFoto extends JFrame{
     public void definirEventos() {
         jbvoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GuiSelecionarFotos tSelecionarFotos = new GuiSelecionarFotos(galeria);
+                GuiSelecionarFotos tSelecionarFotos = new GuiSelecionarFotos(usuario, galeria);
                 tSelecionarFotos.run();
                 dispose();
             }

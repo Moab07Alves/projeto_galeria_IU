@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import controller.GerenciadorUsuarios;
 import entities.Galeria;
 import entities.Usuario;
 
@@ -53,7 +54,7 @@ public class GuiCriarGaleria extends JFrame{
                     menu.run();
                     dispose();
                 }else {
-                    adicionarGaleriaUsuario(nomeGaleria);
+                    usuario.criarGaleria(new Galeria(usuario, nomeGaleria));
                     menu.run();
                     dispose();
                 }
@@ -75,10 +76,5 @@ public class GuiCriarGaleria extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);  
     }
-
-    private void adicionarGaleriaUsuario(String nomeGaleria){
-        this.usuario.criarGaleria(new Galeria(this.usuario, nomeGaleria));
-    }
-
 
 }
