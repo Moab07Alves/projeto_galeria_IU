@@ -39,11 +39,20 @@ public class GerenciadorUsuarios{
         }
     }
 
-    public boolean verificarPessoa(String login) {
+    public boolean verificarUsuario(String login) {
         if (this.usuarios.containsKey(login)) {
             return true;
         }
         return false;
+    }
+    
+    public boolean verificarSenhaUsuario (String login, String senha) {
+        if (this.usuarios.get(login).getSenha().equals(senha)){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public StringBuilder usuariosDoSistema() {

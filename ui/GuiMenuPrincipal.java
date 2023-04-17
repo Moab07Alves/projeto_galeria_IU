@@ -5,8 +5,13 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import controller.GerenciadorUsuarios;
+import entities.Usuario;
+
 public class GuiMenuPrincipal extends JFrame{
     
+    private GerenciadorUsuarios gerenciador;
+    private Usuario usuario;
     private Container contentPane;
     private JMenuBar mnBarra;
     private JMenu mnConfig;
@@ -14,7 +19,9 @@ public class GuiMenuPrincipal extends JFrame{
     private JPanel jpOpcoes;
     private JButton[] botoesOpcoes = new JButton[6];
 
-    public GuiMenuPrincipal () {
+    public GuiMenuPrincipal (GerenciadorUsuarios gerenciador, Usuario usuario) {
+        this.gerenciador = gerenciador;
+        this.usuario = usuario;
         inicializarComponentes();
         definirEventos();
     }

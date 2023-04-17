@@ -4,8 +4,13 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+import controller.GerenciadorUsuarios;
+import entities.Usuario;
+
 public class GuiLogin extends JFrame {
 
+    private GerenciadorUsuarios gerenciador;
+    private Usuario usuario;
     private JTextField tfLogin;
     private JLabel lbSenha;
     private JLabel lbLogin;
@@ -13,7 +18,8 @@ public class GuiLogin extends JFrame {
     private JButton btCancelar;
     private JPasswordField pfSenha;
 
-    public GuiLogin () {
+    public GuiLogin (GerenciadorUsuarios gerenciador) {
+        this.gerenciador = gerenciador;
         inicializarComponentes();
         definirEventos();
     }
@@ -45,13 +51,27 @@ public class GuiLogin extends JFrame {
     private void definirEventos() {
         btLogar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                //implementar função do botão Logar
+                String login = String.valueOf(tfLogin.getText());
+                String senha = String.valueOf(pfSenha.getPassword());
+                usuario = new Usuario(login, senha);
+                if (gerenciador.verificarUsuario(login)) {
+                    GuiMenuPrincipal telaMenu = new GuiMenuPrincipal(gerenciador, usuario);
+                    telaMenu.run();
+                    dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "O usuário ainda não foi cadastrado, por isso será rediracionado para tela de cadastro para assim poder utilizar as funcionalidades");
+                    GuiTelaCadastroUsuario telaCadastro = new GuiTelaCadastroUsuario(gerenciador);
+                    telaCadastro.run();
+                    dispose();
+                }
             }
         });
 
         btCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                 //implementar função do botão Cancelar
+                JOptionPane.showMessageDialog(null, "Obrigado por usar o nosso programa");
+                dispose();
             }
         });
     }

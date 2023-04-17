@@ -5,8 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import controller.GerenciadorUsuarios;
+import entities.Usuario;
+
 public class GuiTelaCadastroUsuario extends JFrame {
 
+    private GerenciadorUsuarios gerenciador;
+    private Usuario usuario;
     private JTextField tfLogin;
     private JLabel lbSenha;
     private JLabel lbLogin;
@@ -14,7 +19,8 @@ public class GuiTelaCadastroUsuario extends JFrame {
     private JButton btCancelar;
     private JPasswordField pfSenha;
 
-    public GuiTelaCadastroUsuario () {
+    public GuiTelaCadastroUsuario (GerenciadorUsuarios gerenciador) {
+        this.gerenciador = gerenciador;
         inicializarComponentes();
         definirEventos();
     }
@@ -46,13 +52,28 @@ public class GuiTelaCadastroUsuario extends JFrame {
     private void definirEventos() {
         btCadastrar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                //Implementar a função do botão de cadastrar
+                try{
+                    String login = String.valueOf(tfLogin.getText());
+                    String senha = String.valueOf(pfSenha.getPassword());
+                    usuario = new Usuario(login, senha);
+                    gerenciador.cadastarUsuario(usuario);
+                    if (gerenciador.verificarUsuario(login)) {
+                        JOptionPane.showMessageDialog(null, "Obrigado por se cadastrar no nosso programa, aproveite as funcionalidades");
+                    }
+                    gerenciador.salvarPessoas();
+                    GuiMenuPrincipal telaMenu = new GuiMenuPrincipal(gerenciador, usuario);
+                    telaMenu.run();
+                    dispose();
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, x.getMessage());
+                }
             }
         });
 
         btCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                //Implementar a função do botão de cancelar
+                JOptionPane.showMessageDialog(null, "Obrigado por usar o nosso programa");
+                dispose();
             }
         });
     }

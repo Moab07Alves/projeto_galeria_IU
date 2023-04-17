@@ -4,6 +4,8 @@ import java.io.IOException;
 import javax.swing.*;
 
 import controller.GerenciadorUsuarios;
+import ui.GuiLogin;
+import ui.GuiTelaCadastroUsuario;
 
 public class Sistema {
     
@@ -11,26 +13,22 @@ public class Sistema {
 
     public static void main(String[] args) throws IOException {
 
-        /** 
+        
         try {
             gerenciador.recuperarPessoas();
-        } catch(FileNotFoundException e) {
+        } catch(Exception e) {
         }
 
         int novoUsuario = JOptionPane.showConfirmDialog(null,"Novo Usuário?(Yes = Sim, No = Não)","Escolha um",JOptionPane.YES_NO_OPTION);
 
         if(novoUsuario == 0) { // Opcao = 0 - Sim, o usuário não tem acesso ao nosso sistema
-                GuiTelaCadastroUsuario telaCadastro = new GuiTelaCadastroUsuario(gerenciador);
-                telaCadastro.run();
-                Usuario usuarioCadastrado = telaCadastro.getUsuario();
+            GuiTelaCadastroUsuario telaCadastro = new GuiTelaCadastroUsuario(gerenciador);
+            telaCadastro.run();
         }
         else{ // Opcao = 1 - Não, o usuário já tem acesso ao nosso sistema
-            GuiLogin telaLogin = new GuiLogin(gerenciador);
-            telaLogin.run();
-            Usuario usuario = telaLogin.getUsuario();
+           GuiLogin telaLogin = new GuiLogin(gerenciador);
+           telaLogin.run();
         }
-
-        */
 
     }
       
