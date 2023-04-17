@@ -1,24 +1,21 @@
 package entities;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import persistence.GravadorDeDados;
 
 public class Galeria {
     
     private Usuario usuario;
     private String tituloGaleria;
     private int quantidadeFotos;
-    private List<Foto> fotos;
-    private GravadorDeDados gravador = new GravadorDeDados(tituloGaleria + ".txt");
+    private HashMap<String, Foto> fotos;
 
     public Galeria(Usuario usuario, String tituloGaleria) {
         this.usuario = usuario;
         this.tituloGaleria = tituloGaleria;
         this.quantidadeFotos = 0;
-        this.fotos = new ArrayList<>();
+        fotos = new HashMap<>();
     }
 
     public String getLoginUsuario() {
@@ -34,45 +31,43 @@ public class Galeria {
         return this.quantidadeFotos;
     }
 
-    public List<Foto> getFotos() {
-        return fotos;
+    public HashMap<String, Foto> getFotos() {
+        return this.fotos;
     }
 
-    public void adicionarFoto(Foto foto) {
-        this.fotos.add(foto);
+    public void adicionarFoto(Foto foto) throws Exception{
+        if (this.fotos.containsKey(foto.getPathFoto())) {
+            throw new Exception("A galeria já possui essa foto");
+        }
+        else {
+            this.fotos.put(foto.getPathFoto(), foto);
+        }
     }
 
     public void removerFoto(Foto foto) {
-        this.fotos.remove(foto);
+        //if (this.fotos.containsKey(foto.getPathFoto())) {
+        this.fotos.remove(foto.getPathFoto(), foto);
+        //}
+        //else {
+        //    throw new Exception("A foto escolhida não está na galeria");
+        //}
     }
 
-    public void salvarFotos() throws IOException {
-        List<String> dadosFotos = new ArrayList<>();
-        for (Foto foto: this.fotos) {
-            dadosFotos.add(foto.getDescricao() + "#" + foto.getDataFoto() + "#" + foto.getCaminhoFoto());
+    public List<Foto> ListaFotos() throws Exception{
+        if (this.fotos.isEmpty()) {
+            throw new Exception("A galeria não possui fotos");
         }
-        gravador.gravaTextoEmArquivo(dadosFotos);
-     }
- 
-     public void recuperarFotos() throws IOException {
-         List<String> dadosFotos = gravador.recuperarTextoDeArquivo();
-         for (String dados: dadosFotos) {
-             String[] linha = dados.split("#");
-             Foto foto = new Foto(this, linha[0], linha[1], linha[2]);
-             this.fotos.add(foto);
-         }
-     }
-
-     //Tratamento de excessão
-     public Foto pesquisarFotoDescricao(String descricao){
-        for (Foto foto : this.fotos) {
-            if(foto.getDescricao().equals(descricao)) {
-                return foto;
+        else {
+            List<Foto> fotosDaGaleria = new ArrayList<>();
+            for (String key: this.fotos.keySet()) {
+                Foto foto = this.fotos.get(key);
+                fotosDaGaleria.add(foto);
             }
+            return fotosDaGaleria;
         }
-        return null;
-     }
+    }
 
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -106,7 +101,9 @@ public class Galeria {
 
     @Override
     public String toString() {
-        return "Galeria [usuario=" + usuario + ", tituloGaleria=" + tituloGaleria + "]";
+    return "Galeria" + "\n" + 
+           "Título da Galeria = " + tituloGaleria + "\n" + 
+           usuario + "\n";
     }
 
 }

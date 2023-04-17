@@ -5,41 +5,33 @@ public class Foto {
     private Galeria galeria;
     private String descricao;
     private String dataFoto;
-    private String caminhoFoto;
+    private String pathFoto;
 
-    public Foto(Galeria galeria, String descrição, String dataFoto, String caminhoFoto) {
+    public Foto(Galeria galeria, String descrição, String dataFoto, String pathFoto) {
         this.galeria = galeria;
         this.descricao = descrição;
         this.dataFoto = dataFoto;
-        this.caminhoFoto = caminhoFoto;
+        this.pathFoto = pathFoto;
     }
 
-    public String getGaleria() {
-        return galeria.getTituloGaleria();
+    public String getTituloGaleria() {
+        return this.galeria.getTituloGaleria();
     }
 
-    public String getGaleriaUsuario() {
-        return galeria.getLoginUsuario();
+    public String getLoginUsuario() {
+        return this.galeria.getLoginUsuario();
     }
 
     public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        return this.descricao;
     }
 
     public String getDataFoto() {
-        return dataFoto;
+        return this.dataFoto;
     }
-
-    public void setDataFoto(String dataFoto) {
-        this.dataFoto = dataFoto;
-    }
-
-    public String getCaminhoFoto() {
-        return caminhoFoto;
+    
+    public String getPathFoto() {
+        return pathFoto;
     }
 
     @Override
@@ -49,7 +41,7 @@ public class Foto {
         result = prime * result + ((galeria == null) ? 0 : galeria.hashCode());
         result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
         result = prime * result + ((dataFoto == null) ? 0 : dataFoto.hashCode());
-        result = prime * result + ((caminhoFoto == null) ? 0 : caminhoFoto.hashCode());
+        result = prime * result + ((pathFoto == null) ? 0 : pathFoto.hashCode());
         return result;
     }
 
@@ -77,18 +69,21 @@ public class Foto {
                 return false;
         } else if (!dataFoto.equals(other.dataFoto))
             return false;
-        if (caminhoFoto == null) {
-            if (other.caminhoFoto != null)
+        if (pathFoto == null) {
+            if (other.pathFoto != null)
                 return false;
-        } else if (!caminhoFoto.equals(other.caminhoFoto))
+        } else if (!pathFoto.equals(other.pathFoto))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Foto [galeria=" + galeria + ", descricao=" + descricao + ", dataFoto=" + dataFoto + ", caminhoFoto="
-                + caminhoFoto + "]";
+        return "Foto" + "\n" +
+               "Descrição: " + descricao + "\n" + 
+               "Data da foto: " + dataFoto + "\n" + 
+               "Path foto: "  + pathFoto + "\n" + 
+               galeria;
     }
 
 }

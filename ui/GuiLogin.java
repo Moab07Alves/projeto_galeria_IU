@@ -4,9 +4,6 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-import controller.GerenciadorUsuarios;
-import entities.Usuario;
-
 public class GuiLogin extends JFrame {
 
     private JTextField tfLogin;

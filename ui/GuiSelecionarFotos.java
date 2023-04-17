@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -9,7 +10,6 @@ import javax.swing.event.ListSelectionListener;
 
 import entities.Foto;
 import entities.Galeria;
-import entities.Usuario;
 
 public class GuiSelecionarFotos extends JFrame{
     
@@ -35,10 +35,13 @@ public class GuiSelecionarFotos extends JFrame{
         telaFotos = new JPanel();
         telaFotos.setLayout(null);
         dlm = new DefaultListModel();
-        galeria.getFotos().size();
-        for(int i = 0; i < galeria.getFotos().size(); i++) {
-            dlm.addElement(galeria.getFotos().get(i).getDescricao());
+
+        HashMap<String, Foto> fotosDaGaleria = galeria.getFotos();
+        for (String key: fotosDaGaleria.keySet()) {
+            Foto foto = fotosDaGaleria.get(key);
+            dlm.addElement(foto.getDescricao());
         }
+        
         lsFotos = new JList(dlm);
         sp = new JScrollPane(lsFotos);
         sp.setBounds(10, 20, 200, getHeight() - 75);

@@ -2,12 +2,8 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.*;
-
-import controller.GerenciadorUsuarios;
-import entities.Usuario;
 
 public class GuiTelaCadastroUsuario extends JFrame {
 
