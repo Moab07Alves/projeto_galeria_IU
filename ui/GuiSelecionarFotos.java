@@ -13,7 +13,6 @@ import entities.Usuario;
 
 public class GuiSelecionarFotos extends JFrame{
     
-    private Usuario usuario;
     private JPanel telaFotos; 
     private JList lsFotos;
     private DefaultListModel dlm;
@@ -23,9 +22,8 @@ public class GuiSelecionarFotos extends JFrame{
     private Galeria galeria;
     private JButton jbabir;
     private JButton jbVoltar;
-    private Foto fotoSelecionda;
 
-    public GuiSelecionarFotos(Usuario usuario, Galeria galeria) {
+    public GuiSelecionarFotos(Galeria galeria) {
         this.galeria = galeria;
         incializarComponentes(galeria);
         definirEventos();
@@ -61,12 +59,9 @@ public class GuiSelecionarFotos extends JFrame{
     }
 
     private void definirEventos() {
-        Galeria galeriaUsuario = usuario.procurarGaleriaPorTitulo(galeria.getTituloGaleria());
         lsFotos.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                fotoSelecionda = galeriaUsuario.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());
-                Foto foto = galeria.pesquisarFotoDescricao("" + lsFotos.getSelectedValue());;
-                imagem1 = new ImageIcon(foto.getCaminhoFoto());
+                imagem1 = new ImageIcon();//passar caminho da foto
                 lbImagem.setIcon(imagem1);
                 jbabir.setVisible(true);
 
@@ -75,17 +70,13 @@ public class GuiSelecionarFotos extends JFrame{
 
         jbabir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GuiTelaComFoto telaFoto = new GuiTelaComFoto(usuario, galeria, fotoSelecionda.getDescricao(), fotoSelecionda.getDataFoto(), fotoSelecionda.getCaminhoFoto());
-                telaFoto.run();
-                dispose();
+               //implementar função do botão abrir
             }
         });  
 
         jbVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GuiSelecionarGaleriaVerFoto telaGalerias = new GuiSelecionarGaleriaVerFoto(usuario);
-                telaGalerias.run();
-                dispose();
+                //implementar função do botão voltar
             }
         });
     }

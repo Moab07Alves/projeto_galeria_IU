@@ -60,25 +60,18 @@ public class GuiSelecionarGaleriaAdiconarFoto extends JFrame{
         lsGalerias.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e){
                 String nomeGaleria = "" + lsGalerias.getSelectedValuesList();
-                galeriaSelecionada = usuario.procurarGaleriaPorTitulo(nomeGaleria);
             }
         });
         
         jbEscolher.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                File fotoEscolhida = mostrarEscolhaFoto();
-                String pathFotoSelecionada = fotoEscolhida.getPath();
-                GuiTelaPreencherDadoFoto telaDadoFoto = new GuiTelaPreencherDadoFoto(pathFotoSelecionada, galeriaSelecionada, usuario);
-                telaDadoFoto.run();
-                dispose();
+                //Implementar a função do botão Escolher
             }
         });
 
         jbVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                GuiMenuPrincipal menu = new GuiMenuPrincipal(usuario);
-                menu.run();
-                dispose();
+                //Implementar a função do botão Voltar
             }
         });
     }
@@ -89,22 +82,4 @@ public class GuiSelecionarGaleriaAdiconarFoto extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);  
     }
-
-    public Galeria galeriaEscolhida() {
-        return this.galeriaSelecionada;
-    }
-
-    public static File mostrarEscolhaFoto() {
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Arquivos de Imagem", "jpg", "jpeg", "png", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File arquivoSelecionado = chooser.getSelectedFile();
-            return arquivoSelecionado;
-        }
-        return null;
-    }
-
 }

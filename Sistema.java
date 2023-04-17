@@ -16,6 +16,7 @@ public class Sistema {
 
     public static void main(String[] args) throws IOException {
 
+        /** 
         try {
             gerenciador.recuperarPessoas();
         } catch(FileNotFoundException e) {
@@ -33,6 +34,9 @@ public class Sistema {
             telaLogin.run();
             Usuario usuario = telaLogin.getUsuario();
         }
+
+        */
+
     }
       
 }      

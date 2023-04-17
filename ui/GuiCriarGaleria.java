@@ -1,27 +1,19 @@
 package ui;
 
-import java.awt.Dimension;
-import java.awt.Menu;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import controller.GerenciadorUsuarios;
-import entities.Galeria;
-import entities.Usuario;
 
 public class GuiCriarGaleria extends JFrame{
     
-    private Usuario usuario;
     private JLabel lbnomGaleria;
     private JButton btCriar;
     private JButton btCancelar;
     private JTextField tfnomeGaleria;
 
-    public GuiCriarGaleria (Usuario usuario) {
-        this.usuario = usuario;
+    public GuiCriarGaleria () {
         inicializarComponentes();
         definirEventos();
     }
@@ -45,36 +37,24 @@ public class GuiCriarGaleria extends JFrame{
     }
 
     private void definirEventos() {
-        GuiMenuPrincipal menu = new GuiMenuPrincipal(this.usuario);
         btCriar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                String nomeGaleria = String.valueOf(tfnomeGaleria.getText());
-                if(nomeGaleria.equals(null) || nomeGaleria.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "ERRO! O nome da galeria não foi inserido\n\n\tTENTE NOVAMENTE");
-                    menu.run();
-                    dispose();
-                }else {
-                    usuario.criarGaleria(new Galeria(usuario, nomeGaleria));
-                    menu.run();
-                    dispose();
-                }
+                //implementar função do botão criar
             }
         });
 
         btCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                menu.run();
-                dispose();
+                //implementar função do botão voltar
             }
         });
     }
 
     public void run () {  
-        setResizable(false);        
-        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((tela.width - getSize().width) / 2, (tela.height - getSize().height) / 2);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setLocationRelativeTo(null);
-        setVisible(true);  
+        setVisible(true);   
     }
 
 }

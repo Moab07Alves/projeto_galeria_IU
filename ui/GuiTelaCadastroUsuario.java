@@ -10,18 +10,15 @@ import controller.GerenciadorUsuarios;
 import entities.Usuario;
 
 public class GuiTelaCadastroUsuario extends JFrame {
-    
-    private Usuario usuario;
+
     private JTextField tfLogin;
     private JLabel lbSenha;
     private JLabel lbLogin;
     private JButton btCadastrar;
     private JButton btCancelar;
     private JPasswordField pfSenha;
-    private GerenciadorUsuarios gerenciador;
 
-    public GuiTelaCadastroUsuario (GerenciadorUsuarios gerenciador) {
-        this.gerenciador = gerenciador;
+    public GuiTelaCadastroUsuario () {
         inicializarComponentes();
         definirEventos();
     }
@@ -53,33 +50,13 @@ public class GuiTelaCadastroUsuario extends JFrame {
     private void definirEventos() {
         btCadastrar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                String senha = String.valueOf(pfSenha.getPassword());
-                String login = String.valueOf(tfLogin.getText());
-                criarUsuario(login, senha);
-                if(gerenciador.verificarPessoa(login, senha)){
-                    JOptionPane.showMessageDialog(null, "Login de usuário já cadastrado, escolha outro nome de usuário");
-                    GuiTelaCadastroUsuario telaCadastroUsuario = new GuiTelaCadastroUsuario(gerenciador);
-                    telaCadastroUsuario.run();
-                    dispose();
-                }
-                else {
-                    gerenciador.cadastarUsuario(usuario);
-                    try{
-                        gerenciador.salvarPessoas();
-                    }catch(IOException o) {
-                        JOptionPane.showMessageDialog(null, o.getMessage());
-                    }
-                    JOptionPane.showMessageDialog(null, "Novo usuário cadastrado com sucesso");
-                    GuiMenuPrincipal menu = new GuiMenuPrincipal(usuario);
-                    menu.run();
-                    dispose();
-                }
+                //Implementar a função do botão de cadastrar
             }
         });
 
         btCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.exit(0);
+                //Implementar a função do botão de cancelar
             }
         });
     }
@@ -90,14 +67,5 @@ public class GuiTelaCadastroUsuario extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);  
     }
-
-    private void criarUsuario(String login, String senha) {
-        this.usuario = new Usuario(login, senha);
-    }
-
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-
 
 }

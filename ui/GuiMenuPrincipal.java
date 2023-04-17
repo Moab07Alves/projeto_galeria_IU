@@ -2,19 +2,11 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import controller.GerenciadorUsuarios;
-import entities.Foto;
-import entities.Galeria;
-import entities.Usuario;
 
 public class GuiMenuPrincipal extends JFrame{
     
-    private Usuario usuario;
     private Container contentPane;
     private JMenuBar mnBarra;
     private JMenu mnConfig;
@@ -22,8 +14,7 @@ public class GuiMenuPrincipal extends JFrame{
     private JPanel jpOpcoes;
     private JButton[] botoesOpcoes = new JButton[6];
 
-    public GuiMenuPrincipal (Usuario usuario) {
-        this.usuario = usuario;
+    public GuiMenuPrincipal () {
         inicializarComponentes();
         definirEventos();
     }
@@ -75,48 +66,37 @@ public class GuiMenuPrincipal extends JFrame{
 
         botoesOpcoes[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GuiCriarGaleria guiCriarGaleria = new GuiCriarGaleria(usuario);
-                guiCriarGaleria.run();
-                dispose();
+                //implementar Função do Botão de Criar galeria
             }
         });
 
         botoesOpcoes[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(usuario.getGaleria() != null) {
-                    GuiSelecionarGaleriaAdiconarFoto telaSelecionarGaleria = new GuiSelecionarGaleriaAdiconarFoto(usuario);
-                    telaSelecionarGaleria.run();
-                    dispose();
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "O usuário não possui nenhuma galeria");
-                }
+                 //implementar função do botão de Adicionar foto 
             }
         });
 
         botoesOpcoes[2].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                 //implementar função do botão de Remover foto
             }
         });
 
         botoesOpcoes[3].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               GuiSelecionarGaleriaVerFoto tela = new GuiSelecionarGaleriaVerFoto(usuario);
-               tela.run();
-               dispose();
+               //implementar função do botão de Ver fotos
             }
         });
 
         botoesOpcoes[4].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                //implementar função do botão de Procurar foto por data
             }
         });
 
         botoesOpcoes[5].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                 //implementar função do botão  de Procurar foto por filho
             }
         });
 
@@ -125,8 +105,6 @@ public class GuiMenuPrincipal extends JFrame{
     public void run() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((tela.width - getSize().width) / 2, (tela.height - getSize().height) / 2);
         setLocationRelativeTo(null);
         setVisible(true);  
     }

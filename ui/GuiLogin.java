@@ -8,18 +8,15 @@ import controller.GerenciadorUsuarios;
 import entities.Usuario;
 
 public class GuiLogin extends JFrame {
-    
-    private Usuario usuario;
+
     private JTextField tfLogin;
     private JLabel lbSenha;
     private JLabel lbLogin;
     private JButton btLogar;
     private JButton btCancelar;
     private JPasswordField pfSenha;
-    private GerenciadorUsuarios gerenciador;
 
-    public GuiLogin (GerenciadorUsuarios gerenciador) {
-        this.gerenciador = gerenciador;
+    public GuiLogin () {
         inicializarComponentes();
         definirEventos();
     }
@@ -51,25 +48,13 @@ public class GuiLogin extends JFrame {
     private void definirEventos() {
         btLogar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                String senha = String.valueOf(pfSenha.getPassword());
-                String login = String.valueOf(tfLogin.getText());
-                if(gerenciador.verificarPessoa(login, senha)) {
-                    GuiMenuPrincipal menu = new GuiMenuPrincipal(usuario);
-                    menu.run();
-                    dispose();
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "O usuário não é cadastrado no sistema, é preciso que o usuário faça primeiro o cadastro");
-                    GuiTelaCadastroUsuario telaCadastroUsuario = new GuiTelaCadastroUsuario(gerenciador);
-                    telaCadastroUsuario.run();
-                    dispose();
-                }
+                //implementar função do botão Logar
             }
         });
 
         btCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.exit(0);
+                 //implementar função do botão Cancelar
             }
         });
     }
@@ -77,18 +62,8 @@ public class GuiLogin extends JFrame {
     public void run () {          
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((tela.width - getSize().width) / 2, (tela.height - getSize().height) / 2);
         setLocationRelativeTo(null);
         setVisible(true);  
-    }
-
-    private void criarUsuario(String login, String senha) {
-        this.usuario = new Usuario(login, senha);
-    }
-
-    public Usuario getUsuario() {
-        return this.usuario;
     }
 
 }

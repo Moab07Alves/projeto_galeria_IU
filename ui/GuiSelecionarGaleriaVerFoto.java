@@ -59,23 +59,18 @@ public class GuiSelecionarGaleriaVerFoto extends JFrame{
         lsGalerias.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e){
                 String nomeGaleria = "" + lsGalerias.getSelectedValuesList();
-                galeriaSelecionada = usuario.procurarGaleriaPorTitulo(nomeGaleria);
             }
         });
         
         jbEscolher.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                GuiSelecionarFotos telaVerFotos = new GuiSelecionarFotos(usuario, galeriaSelecionada);
-                telaVerFotos.run();
-                dispose();
+                //Implementar a função do botão Escolher
             }
         });
 
         jbVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                GuiMenuPrincipal menu = new GuiMenuPrincipal(usuario);
-                menu.run();
-                dispose();
+                //Implementar a função do botão Voltar
             }
         });
     }
@@ -85,23 +80,6 @@ public class GuiSelecionarGaleriaVerFoto extends JFrame{
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);  
-    }
-
-    public Galeria galeriaEscolhida() {
-        return this.galeriaSelecionada;
-    }
-
-    public static File mostrarEscolhaFoto() {
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Arquivos de Imagem", "jpg", "jpeg", "png", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File arquivoSelecionado = chooser.getSelectedFile();
-            return arquivoSelecionado;
-        }
-        return null;
     }
 
 }

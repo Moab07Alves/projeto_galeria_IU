@@ -55,9 +55,7 @@ public class GuiTelaComFoto extends JFrame{
     public void definirEventos() {
         jbvoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GuiSelecionarFotos tSelecionarFotos = new GuiSelecionarFotos(usuario, galeria);
-                tSelecionarFotos.run();
-                dispose();
+               //Implementar a função do botão Voltar
             }
         });
     }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Usuario{
 
-    private String login;
+    private String login; // É O NOME DO USUÁRIO NO SISTEMA
     private String senha;
     private List<Galeria> galerias;
 
@@ -91,7 +91,6 @@ public class Usuario{
         final int prime = 31;
         int result = 1;
         result = prime * result + ((login == null) ? 0 : login.hashCode());
-        result = prime * result + ((senha == null) ? 0 : senha.hashCode());
         return result;
     }
 
@@ -108,11 +107,6 @@ public class Usuario{
             if (other.login != null)
                 return false;
         } else if (!login.equals(other.login))
-            return false;
-        if (senha == null) {
-            if (other.senha != null)
-                return false;
-        } else if (!senha.equals(other.senha))
             return false;
         return true;
     }

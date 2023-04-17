@@ -1,6 +1,7 @@
 package controller;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import entities.Usuario;
@@ -8,40 +9,57 @@ import persistence.GravadorDeDados;
 
 public class GerenciadorUsuarios{
 
-    private List<Usuario> usuarios;
+    private HashMap<String, Usuario> usuarios;
     private GravadorDeDados gravador;
 
     public GerenciadorUsuarios() {
-        this.usuarios = new ArrayList<>();
+        this.usuarios = new HashMap<>();
         gravador = new GravadorDeDados("usuarios.txt");
     }
     
-    public Usuario getUsuario(Usuario usuario) {
-        for(Usuario usu: this.usuarios) {
-            if (usu.equals(usuario)) {
-                return usu;
-            }
+    public Usuario getUsuario(String login) {
+        if (this.usuarios.containsKey(login)) {
+            return this.usuarios.get(login);
         }
         return null;
     }
 
-    public void cadastarUsuario(Usuario usuario) {
-        this.usuarios.add(usuario);
+    public void cadastarUsuario(Usuario usuario) throws Exception{
+        if (this.usuarios.containsKey(usuario.getLogin())) {
+            throw new Exception("O Login passado já esta sendo utilizado por outro usuario");
+        }
+        else {
+            this.usuarios.put(usuario.getLogin(), usuario);
+        }
     }
 
-    public boolean verificarPessoa(String login, String senha) {
-        for(Usuario usuario: this.usuarios) {
-            if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
-                return true;
-            }
+    public boolean verificarPessoa(String login) {
+        if (this.usuarios.containsKey(login)) {
+            return true;
         }
         return false;
     }
 
+    public StringBuilder usuariosDoSistema() {
+        StringBuilder texto = new StringBuilder();
+        if(!this.usuarios.isEmpty()) {
+            texto.append("USUÁRIOS DO SISTEMA\n\n");
+            for (String key : this.usuarios.keySet()) {
+                Usuario usuario = this.usuarios.get(key);
+                texto.append("Login: " + usuario.getLogin() + "  Senha: " + usuario.getSenha() + "\n");
+            }
+        }
+        else {
+            texto.append("Não há usuarios cadastrados\n");
+        }
+        return texto;
+    }
+    
     public void salvarPessoas() throws IOException {
         List<String> texto = new ArrayList<>();
-        for (Usuario a : this.usuarios){
-            String linha = a.getLogin() + "#" + a.getSenha();
+        for (String key: this.usuarios.keySet()){
+            Usuario usuario = this.usuarios.get(key);
+            String linha = usuario.getLogin() + "#" + usuario.getSenha();
             texto.add(linha);
         }
         gravador.gravaTextoEmArquivo(texto);
@@ -53,9 +71,10 @@ public class GerenciadorUsuarios{
         if(texto.size() > 1){
             for (String dadosUsuario : texto) {
                 array = dadosUsuario.split("#");
-                this.usuarios.add(new Usuario(array[0], array[1]));
+                Usuario usuarioRecuperado = new Usuario(array[0], array[1]);
+                this.usuarios.put(usuarioRecuperado.getLogin(), usuarioRecuperado);
             }
         }
     }
-    
+
 }

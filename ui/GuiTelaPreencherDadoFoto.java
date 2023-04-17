@@ -64,12 +64,7 @@ public class GuiTelaPreencherDadoFoto extends JFrame{
     public void definirEventos() {
         jbSalvar.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-                String descricao = String.valueOf(tfDescricao.getText());
-                String data = String.valueOf(tfData.getText());
-                usuario.registrarFoto(galeriaSelecionada,(new Foto(galeriaSelecionada, descricao, data, pathFotoSelecionada)));
-                GuiMenuPrincipal menu = new GuiMenuPrincipal(usuario);
-                menu.run();
-                dispose();
+                //Implementar a função do botão Salvar
             }
         });
     }
