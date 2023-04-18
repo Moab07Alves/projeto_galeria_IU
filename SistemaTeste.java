@@ -7,7 +7,7 @@ import entities.Foto;
 import entities.Galeria;
 import entities.Usuario;
 
-public class Main {
+public class SistemaTeste {
     
     static GerenciadorUsuarios gerenciador = new GerenciadorUsuarios();
     public static void main(String[] args){

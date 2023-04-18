@@ -51,19 +51,24 @@ public class GuiLogin extends JFrame {
     private void definirEventos() {
         btLogar.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                String login = String.valueOf(tfLogin.getText());
-                String senha = String.valueOf(pfSenha.getPassword());
-                usuario = new Usuario(login, senha);
-                if (gerenciador.verificarUsuario(login)) {
-                    GuiMenuPrincipal telaMenu = new GuiMenuPrincipal(gerenciador, usuario);
-                    telaMenu.run();
-                    dispose();
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "O usuário ainda não foi cadastrado, por isso será rediracionado para tela de cadastro para assim poder utilizar as funcionalidades");
-                    GuiTelaCadastroUsuario telaCadastro = new GuiTelaCadastroUsuario(gerenciador);
-                    telaCadastro.run();
-                    dispose();
+                try{
+                    String login = String.valueOf(tfLogin.getText());
+                    String senha = String.valueOf(pfSenha.getPassword());
+                    usuario = new Usuario(login, senha);
+                    if (gerenciador.verificarUsuario(login)) {
+                        gerenciador.verificarSenhaUsuario(login, senha);
+                        GuiMenuPrincipal telaMenu = new GuiMenuPrincipal(gerenciador, usuario);
+                        telaMenu.run();
+                        dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "O usuário ainda não foi cadastrado, por isso será rediracionado para tela de cadastro para assim poder utilizar as funcionalidades");
+                        GuiTelaCadastroUsuario telaCadastro = new GuiTelaCadastroUsuario(gerenciador);
+                        telaCadastro.run();
+                        dispose();
+                    }
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, x.getMessage());
                 }
             }
         });

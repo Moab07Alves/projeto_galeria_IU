@@ -46,12 +46,12 @@ public class GerenciadorUsuarios{
         return false;
     }
     
-    public boolean verificarSenhaUsuario (String login, String senha) {
+    public boolean verificarSenhaUsuario (String login, String senha) throws Exception {
         if (this.usuarios.get(login).getSenha().equals(senha)){
             return true;
         }
         else {
-            return false;
+            throw new Exception("Seha Incorreta");
         }
     }
 
