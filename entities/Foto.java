@@ -7,11 +7,22 @@ public class Foto {
     private String dataFoto;
     private String pathFoto;
 
-    public Foto(Galeria galeria, String descrição, String dataFoto, String pathFoto) {
-        this.galeria = galeria;
-        this.descricao = descrição;
-        this.dataFoto = dataFoto;
-        this.pathFoto = pathFoto;
+    public Foto(Galeria galeria, String descrição, String dataFoto, String pathFoto) throws Exception {
+        if ((descrição.equals(null) || descrição.equals("")) && (dataFoto.equals(null) || dataFoto.equals(""))) {
+            throw new Exception("A foto não pode ser salvada sem uma descrição e sem uma data");
+        }
+        else if (descrição.equals(null) || descrição.equals("")) {
+            throw new Exception("A foto não pode ser salvada sem uma descrição");
+        }
+        else if (dataFoto.equals(null) || dataFoto.equals("")) {
+            throw new Exception("A foto não pode ser salvada sem uma data");
+        }
+        else {
+            this.galeria = galeria;
+            this.descricao = descrição;
+            this.dataFoto = dataFoto;
+            this.pathFoto = pathFoto;
+        }
     }
 
     public String getTituloGaleria() {

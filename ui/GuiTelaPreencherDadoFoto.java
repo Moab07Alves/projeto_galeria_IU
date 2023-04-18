@@ -12,22 +12,28 @@ import entities.Usuario;
 
 public class GuiTelaPreencherDadoFoto extends JFrame{
 
+//------------------------------ Entidades de Domínio ------------------------------------------
+    private GerenciadorUsuarios gerenciador;
     private Usuario usuario;
+    private String tituloGaleriaSelecionada;
+    private Foto fotoSelecionada;
+    private String pathFotoSelecionada;
+// --------------------------------------------------------------------------------------------
+    
     private JTextField tfDescricao;
     private JLabel lbDescricao;
     private JTextField tfData;
     private JLabel lbData;
     private JButton jbSalvar;
     private ImageIcon image;
-    private String pathFotoSelecionada;
-    private Galeria galeriaSelecionada;
     private JLabel lbimage;
     private JPanel painel;
 
-    public GuiTelaPreencherDadoFoto(String pathFotoSelecionada, Galeria galeriaSelecionada, Usuario usuario) {
-        this.pathFotoSelecionada = pathFotoSelecionada;
-        this.galeriaSelecionada = galeriaSelecionada;
+    public GuiTelaPreencherDadoFoto(GerenciadorUsuarios gerenciador, Usuario usuario, String tituloGaleriaSelecionada, String pathFotoSelecionada) {
+        this.gerenciador = gerenciador;
         this.usuario = usuario;
+        this.tituloGaleriaSelecionada = tituloGaleriaSelecionada;
+        this.pathFotoSelecionada =pathFotoSelecionada;
         inicializarComponentes();
         definirEventos();
     }
@@ -65,6 +71,19 @@ public class GuiTelaPreencherDadoFoto extends JFrame{
         jbSalvar.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                 //Implementar a função do botão Salvar
+                try {
+                    String descricao = String.valueOf(tfDescricao.getText());
+                    String data = String.valueOf(tfData.getText());
+                    fotoSelecionada = new Foto(gerenciador.getUsuario(usuario.getLogin()).procurarGaleriaPorTitulo(tituloGaleriaSelecionada), descricao, data, pathFotoSelecionada);
+                    gerenciador.getUsuario(usuario.getLogin()).registrarFoto(gerenciador.getUsuario(usuario.getLogin()).procurarGaleriaPorTitulo(tituloGaleriaSelecionada), fotoSelecionada);
+                    JOptionPane.showMessageDialog(null, "Foto foi adicionada a galeria " + tituloGaleriaSelecionada + " com sucesso");
+                    gerenciador.salvarPessoas();
+                    dispose();
+                    GuiMenuPrincipal telaMenu = new GuiMenuPrincipal(gerenciador, usuario);
+                    telaMenu.run();
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, x.getMessage());
+                }
             }
         });
     }
