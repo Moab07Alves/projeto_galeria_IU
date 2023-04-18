@@ -39,27 +39,31 @@ public class Galeria {
         return this.fotos;
     }
 
-    public void adicionarFoto(Foto foto) throws Exception{
-        if (this.fotos.containsKey(foto.getPathFoto())) {
-            throw new Exception("A galeria já possui essa foto");
-        }
-        else {
-            this.fotos.put(foto.getPathFoto(), foto);
-        }
+    public void adicionarFoto(Foto foto) {
+        //if (this.fotos.containsKey(foto.getDescricao())) {
+        //    throw new Exception("A galeria já possui essa foto");
+        //}
+        //else {
+        this.fotos.put(foto.getDescricao(), foto);
+        //}
     }
 
     public void removerFoto(Foto foto) {
         //if (this.fotos.containsKey(foto.getPathFoto())) {
-        this.fotos.remove(foto.getPathFoto(), foto);
+        this.fotos.remove(foto.getDescricao(), foto);
         //}
         //else {
         //    throw new Exception("A foto escolhida não está na galeria");
         //}
     }
 
+    public Foto getFoto(String descricao) {
+        return this.fotos.get(descricao);
+    }
+
     public List<Foto> ListaFotos() throws Exception{
         if (this.fotos.isEmpty()) {
-            throw new Exception("A galeria não possui fotos");
+            throw new Exception("A galeria '" + tituloGaleria + "'' não possui fotos");
         }
         else {
             List<Foto> fotosDaGaleria = new ArrayList<>();

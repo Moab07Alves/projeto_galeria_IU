@@ -3,43 +3,55 @@ package ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import controller.GerenciadorUsuarios;
 import entities.Foto;
 import entities.Galeria;
+import entities.Usuario;
 
 public class GuiSelecionarFotos extends JFrame{
     
+//------------------------------ Entidades de Domínio ------------------------------------------
+    private GerenciadorUsuarios gerenciador;
+    private Usuario usuario;
+    private String tituloGaleriaSelecionada;
+    private Foto fotoSelecionada;
+// --------------------------------------------------------------------------------------------
+
+
     private JPanel telaFotos; 
     private JList lsFotos;
     private DefaultListModel dlm;
     private ImageIcon imagem1;
     private JScrollPane sp;
     private JLabel lbImagem;
-    private Galeria galeria;
     private JButton jbabir;
     private JButton jbVoltar;
 
-    public GuiSelecionarFotos(Galeria galeria) {
-        this.galeria = galeria;
-        incializarComponentes(galeria);
+    public GuiSelecionarFotos(GerenciadorUsuarios gerenciador, Usuario usuario, String tituloGaleriaSelecionada) throws Exception {
+        this.gerenciador = gerenciador;
+        this.usuario = usuario;
+        this.tituloGaleriaSelecionada = tituloGaleriaSelecionada;
+        incializarComponentes();
         definirEventos();
     }
     
-    private void incializarComponentes(Galeria galeria) {
-        setTitle("Fotos da Galeria: " + galeria.getTituloGaleria());
+    private void incializarComponentes() throws Exception {
+        setTitle("Fotos da Galeria: " + tituloGaleriaSelecionada);
         setBounds(0, 0, 600, 315);
         telaFotos = new JPanel();
         telaFotos.setLayout(null);
         dlm = new DefaultListModel();
 
-        HashMap<String, Foto> fotosDaGaleria = galeria.getFotos();
-        for (String key: fotosDaGaleria.keySet()) {
-            Foto foto = fotosDaGaleria.get(key);
-            dlm.addElement(foto.getDescricao());
+        List<Foto> fotosDaGaleria = gerenciador.getUsuario(usuario.getLogin()).procurarGaleriaPorTitulo(tituloGaleriaSelecionada).ListaFotos();
+        
+        for (int i = 0; i < fotosDaGaleria.size(); i++) {
+            dlm.addElement(fotosDaGaleria.get(i).getDescricao());
         }
         
         lsFotos = new JList(dlm);
@@ -64,22 +76,35 @@ public class GuiSelecionarFotos extends JFrame{
     private void definirEventos() {
         lsFotos.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                imagem1 = new ImageIcon();//passar caminho da foto
-                lbImagem.setIcon(imagem1);
-                jbabir.setVisible(true);
-
+                try {
+                    fotoSelecionada = gerenciador.getUsuario(usuario.getLogin()).   procurarGaleriaPorTitulo(tituloGaleriaSelecionada).getFoto(String.valueOf  (lsFotos.getSelectedValue()));
+                    imagem1 = new ImageIcon(fotoSelecionada.getPathFoto());
+                    lbImagem.setIcon(imagem1);
+                    jbabir.setVisible(true);
+                } catch (Exception x) {
+                    //Não irá lançar execessão
+                }
             }
         });
 
         jbabir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                //implementar função do botão abrir
+               GuiTelaComFoto telaComFoto = new GuiTelaComFoto(gerenciador, usuario, tituloGaleriaSelecionada, fotoSelecionada);
+               telaComFoto.run();
+               dispose();
             }
         });  
 
         jbVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //implementar função do botão voltar
+                try {
+                    GuiSelecionarGaleriaVerFoto tSelecionarGaleriaVerFoto = new GuiSelecionarGaleriaVerFoto(gerenciador, usuario);
+                    tSelecionarGaleriaVerFoto.run();
+                    dispose();
+                } catch (Exception x) {
+                    //Não irá lançar execessão
+                }
             }
         });
     }

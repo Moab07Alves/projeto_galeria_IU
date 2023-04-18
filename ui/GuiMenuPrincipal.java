@@ -88,9 +88,9 @@ public class GuiMenuPrincipal extends JFrame{
                  } 
                  else {
                     try {
-                    GuiSelecionarGaleriaAdiconarFoto telaAdicionarFoto = new GuiSelecionarGaleriaAdiconarFoto(gerenciador, usuario);
-                    telaAdicionarFoto.run();
-                    dispose();
+                        GuiSelecionarGaleriaAdiconarFoto telaAdicionarFoto = new GuiSelecionarGaleriaAdiconarFoto(gerenciador, usuario);
+                        telaAdicionarFoto.run();
+                        dispose();
                     } catch (Exception x) {
                         // A excessão foi tratada de outra forma então nunca irá lançar a execessão para qual esse try catch foi criado.
                     }
@@ -107,6 +107,18 @@ public class GuiMenuPrincipal extends JFrame{
         botoesOpcoes[3].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                //implementar função do botão de Ver fotos
+                if (gerenciador.getUsuario(usuario.getLogin()).getQuantidadeGalerias() == 0) {
+                    JOptionPane.showMessageDialog(null, "O usuário não possui galerias");
+                } 
+                else {
+                    try {
+                        GuiSelecionarGaleriaVerFoto telaSelecionarGaleriaVerFoto = new GuiSelecionarGaleriaVerFoto(gerenciador, usuario);
+                       telaSelecionarGaleriaVerFoto.run();
+                      dispose();
+                    } catch (Exception x) {
+                       // A excessão foi tratada de outra forma então nunca irá lançar a execessão para qual esse try catch foi criado.
+                    }
+                }
             }
         });
 
