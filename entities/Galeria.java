@@ -11,11 +11,15 @@ public class Galeria {
     private int quantidadeFotos;
     private HashMap<String, Foto> fotos;
 
-    public Galeria(Usuario usuario, String tituloGaleria) {
-        this.usuario = usuario;
-        this.tituloGaleria = tituloGaleria;
-        this.quantidadeFotos = 0;
-        fotos = new HashMap<>();
+    public Galeria(Usuario usuario, String tituloGaleria) throws Exception{
+        if (tituloGaleria.equals(null) || tituloGaleria.equals("")) {
+            throw new Exception("Erro com o nome da galeria, Tente novamente ou escolha outro nome");
+        }else {
+            this.usuario = usuario;
+            this.tituloGaleria = tituloGaleria;
+            this.quantidadeFotos = 0;
+            fotos = new HashMap<>();
+        }
     }
 
     public String getLoginUsuario() {

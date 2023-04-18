@@ -74,6 +74,9 @@ public class GuiMenuPrincipal extends JFrame{
         botoesOpcoes[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //implementar Função do Botão de Criar galeria
+                GuiCriarGaleria telaCriarGaleria = new GuiCriarGaleria(gerenciador, usuario);
+                telaCriarGaleria.run();
+                dispose();
             }
         });
 

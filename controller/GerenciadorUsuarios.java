@@ -41,17 +41,17 @@ public class GerenciadorUsuarios{
 
     public boolean verificarUsuario(String login) {
         if (this.usuarios.containsKey(login)) {
-            return true;
+            return true; // O Login do usuário já está no sistema, ou seja o usuário já é cadastrado no sistema
         }
-        return false;
+        return false; // O login passado não existe no sistema, ouseja o usuário ainda não é cadastrado
     }
     
     public boolean verificarSenhaUsuario (String login, String senha) throws Exception {
         if (this.usuarios.get(login).getSenha().equals(senha)){
-            return true;
+            return true; // O login bate com a senha do usuario que foi cadastrado no sistema
         }
         else {
-            throw new Exception("Seha Incorreta");
+            throw new Exception("Seha Incorreta"); // A senha não bate com o login e senha do usuario que foram cadastrados no sistema
         }
     }
 
