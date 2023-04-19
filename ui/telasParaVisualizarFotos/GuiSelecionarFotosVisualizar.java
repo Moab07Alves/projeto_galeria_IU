@@ -1,4 +1,4 @@
-package ui;
+package ui.telasParaVisualizarFotos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +14,7 @@ import entities.Foto;
 import entities.Galeria;
 import entities.Usuario;
 
-public class GuiSelecionarFotos extends JFrame{
+public class GuiSelecionarFotosVisualizar extends JFrame{
     
 //------------------------------ Entidades de Domínio ------------------------------------------
     private GerenciadorUsuarios gerenciador;
@@ -33,7 +33,7 @@ public class GuiSelecionarFotos extends JFrame{
     private JButton jbabir;
     private JButton jbVoltar;
 
-    public GuiSelecionarFotos(GerenciadorUsuarios gerenciador, Usuario usuario, String tituloGaleriaSelecionada) throws Exception {
+    public GuiSelecionarFotosVisualizar(GerenciadorUsuarios gerenciador, Usuario usuario, String tituloGaleriaSelecionada) throws Exception {
         this.gerenciador = gerenciador;
         this.usuario = usuario;
         this.tituloGaleriaSelecionada = tituloGaleriaSelecionada;
@@ -90,7 +90,7 @@ public class GuiSelecionarFotos extends JFrame{
         jbabir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                //implementar função do botão abrir
-               GuiTelaComFoto telaComFoto = new GuiTelaComFoto(gerenciador, usuario, tituloGaleriaSelecionada, fotoSelecionada);
+               GuiTelaComFotoVisualizar telaComFoto = new GuiTelaComFotoVisualizar(gerenciador, usuario, tituloGaleriaSelecionada, fotoSelecionada);
                telaComFoto.run();
                dispose();
             }

@@ -1,4 +1,4 @@
-package ui;
+package ui.telasDeEntrada;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import controller.GerenciadorUsuarios;
 import entities.Usuario;
+import ui.telasDeMenu.GuiMenuPrincipal;
 
 public class GuiTelaCadastroUsuario extends JFrame {
 

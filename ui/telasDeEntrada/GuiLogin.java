@@ -1,4 +1,4 @@
-package ui;
+package ui.telasDeEntrada;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import controller.GerenciadorUsuarios;
 import entities.Usuario;
+import ui.telasDeMenu.GuiMenuPrincipal;
 
 public class GuiLogin extends JFrame {
 

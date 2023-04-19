@@ -1,4 +1,4 @@
-package ui;
+package ui.telasParaAdiconarFotos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,7 @@ import controller.GerenciadorUsuarios;
 import entities.Foto;
 import entities.Galeria;
 import entities.Usuario;
+import ui.telasDeMenu.GuiMenuPrincipal;
 
 public class GuiTelaPreencherDadoFoto extends JFrame{
 

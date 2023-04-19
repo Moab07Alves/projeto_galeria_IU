@@ -1,4 +1,4 @@
-package ui;
+package ui.telasDeMenu;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,6 +7,10 @@ import javax.swing.*;
 
 import controller.GerenciadorUsuarios;
 import entities.Usuario;
+import ui.telasParaAdiconarFotos.GuiSelecionarGaleriaAdiconarFoto;
+import ui.telasParaCriarGalerias.GuiCriarGaleria;
+import ui.telasParaRemoverFotos.GuiSelecionarGaleriaRemoverFoto;
+import ui.telasParaVisualizarFotos.GuiSelecionarGaleriaVerFoto;
 
 public class GuiMenuPrincipal extends JFrame{
     
@@ -73,7 +77,7 @@ public class GuiMenuPrincipal extends JFrame{
 
         botoesOpcoes[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //implementar Função do Botão de Criar galeria
+                //implementação da função do botão de Criar galeria
                 GuiCriarGaleria telaCriarGaleria = new GuiCriarGaleria(gerenciador, usuario);
                 telaCriarGaleria.run();
                 dispose();
@@ -82,7 +86,7 @@ public class GuiMenuPrincipal extends JFrame{
 
         botoesOpcoes[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                 //implementar função do botão de Adicionar foto
+                 //implementação da função do botão de Adicionar foto
                  if (gerenciador.getUsuario(usuario.getLogin()).getQuantidadeGalerias() == 0) {
                     JOptionPane.showMessageDialog(null, "O usuário não possui galerias, por isso ainda não pode adicionar fotos, é necessário que crie pelo menos uma galeria");
                  } 
@@ -101,12 +105,24 @@ public class GuiMenuPrincipal extends JFrame{
         botoesOpcoes[2].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                  //implementar função do botão de Remover foto
+                 if (gerenciador.getUsuario(usuario.getLogin()).getQuantidadeGalerias() == 0) {
+                    JOptionPane.showMessageDialog(null, "O usuário não possui galerias");
+                 }
+                 else {
+                    try {
+                        GuiSelecionarGaleriaRemoverFoto tSelecionarGaleriaRemoverFoto = new GuiSelecionarGaleriaRemoverFoto(gerenciador, usuario);
+                        tSelecionarGaleriaRemoverFoto.run();
+                        dispose();
+                    } catch (Exception x) {
+                        // Não irá lançar execessão
+                    }
+                 }
             }
         });
 
         botoesOpcoes[3].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               //implementar função do botão de Ver fotos
+               //implementação da função do botão de Ver fotos
                 if (gerenciador.getUsuario(usuario.getLogin()).getQuantidadeGalerias() == 0) {
                     JOptionPane.showMessageDialog(null, "O usuário não possui galerias");
                 } 

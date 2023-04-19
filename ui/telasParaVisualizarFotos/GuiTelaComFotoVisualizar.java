@@ -1,4 +1,4 @@
-package ui;
+package ui.telasParaVisualizarFotos;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ import controller.GerenciadorUsuarios;
 import entities.Foto;
 import entities.Usuario;
 
-public class GuiTelaComFoto extends JFrame{
+public class GuiTelaComFotoVisualizar extends JFrame{
 
 //------------------------------ Entidades de Domínio ------------------------------------------
     private GerenciadorUsuarios gerenciador;
@@ -26,7 +26,7 @@ public class GuiTelaComFoto extends JFrame{
     private ImageIcon imagem;
     private JButton jbvoltar;
 
-    public GuiTelaComFoto(GerenciadorUsuarios gerenciador, Usuario usuario, String tituloGaleriaSelecionada, Foto fotoSelecionada) {
+    public GuiTelaComFotoVisualizar(GerenciadorUsuarios gerenciador, Usuario usuario, String tituloGaleriaSelecionada, Foto fotoSelecionada) {
         this.gerenciador = gerenciador;
         this.usuario = usuario;
         this.tituloGaleriaSelecionada = tituloGaleriaSelecionada;
@@ -65,7 +65,7 @@ public class GuiTelaComFoto extends JFrame{
             public void actionPerformed(ActionEvent e) {
                //Implementar a função do botão Voltar
                try {
-                    GuiSelecionarFotos tSelecionarFotos = new GuiSelecionarFotos(gerenciador, usuario, tituloGaleriaSelecionada);
+                    GuiSelecionarFotosVisualizar tSelecionarFotos = new GuiSelecionarFotosVisualizar(gerenciador, usuario, tituloGaleriaSelecionada);
                     tSelecionarFotos.run();
                     dispose();
                } catch (Exception x) {

@@ -1,27 +1,27 @@
-package ui;
+package ui.telasParaVisualizarFotos;
 
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.GerenciadorUsuarios;
 import entities.Galeria;
 import entities.Usuario;
+import ui.telasDeMenu.GuiMenuPrincipal;
 
-public class GuiSelecionarGaleriaAdiconarFoto extends JFrame{
+public class GuiSelecionarGaleriaVerFoto extends JFrame{
 
 //------------------------------ Entidades de Domínio ------------------------------------------
     private GerenciadorUsuarios gerenciador;
     private Usuario usuario;
     private String tituloGaleriaSelecionada;
 // --------------------------------------------------------------------------------------------
+
     private JPanel painel;
     private JList lsGalerias;
     private DefaultListModel dlm;
@@ -29,7 +29,7 @@ public class GuiSelecionarGaleriaAdiconarFoto extends JFrame{
     private JButton jbEscolher;
     private JButton jbVoltar;
 
-    public GuiSelecionarGaleriaAdiconarFoto(GerenciadorUsuarios gerenciador, Usuario usuario) throws Exception {
+    public GuiSelecionarGaleriaVerFoto(GerenciadorUsuarios gerenciador, Usuario usuario) throws Exception {
         this.gerenciador = gerenciador;
         this.usuario = usuario;
         incializarComponentes();
@@ -45,13 +45,12 @@ public class GuiSelecionarGaleriaAdiconarFoto extends JFrame{
         painel.setBounds(0, 0, 400, 300);
         dlm = new DefaultListModel<>();
 
-        //Ver melhor o taratamento da excessão, quando o usuário não possui galerias cadastradas.
         List<Galeria> galeriasDoUsuario = gerenciador.getUsuario(usuario.getLogin()).todasGalerias();
 
         for(int i = 0; i < galeriasDoUsuario.size(); i++) {
             dlm.addElement(galeriasDoUsuario.get(i).getTituloGaleria());
         }
-
+        
         lsGalerias = new JList<>(dlm);
         sp = new JScrollPane(lsGalerias);
         sp.setBounds(30, 10, 500, 200);
@@ -82,10 +81,15 @@ public class GuiSelecionarGaleriaAdiconarFoto extends JFrame{
         jbEscolher.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 //Implementar a função do botão Escolher
-                File fotoEscolhida = mostrarEscolhaFoto();
-                dispose();
-                GuiTelaPreencherDadoFoto telaPreencherDadoFoto = new GuiTelaPreencherDadoFoto(gerenciador, usuario, tituloGaleriaSelecionada, fotoEscolhida.getPath());
-                telaPreencherDadoFoto.run();
+                try {
+                    GuiSelecionarFotosVisualizar telaSelecionarFotos;
+                    telaSelecionarFotos = new GuiSelecionarFotosVisualizar(gerenciador, usuario, tituloGaleriaSelecionada);
+                    telaSelecionarFotos.run();
+                    dispose();
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, x.getMessage());
+                }
+                
             }
         });
 
@@ -106,18 +110,4 @@ public class GuiSelecionarGaleriaAdiconarFoto extends JFrame{
         setVisible(true);  
     }
 
-    // Função utilizada para que o usuário possa selecionar qualquer foto que esteja em alguma pasta o local armazenado do seu aparelho
-    public static File mostrarEscolhaFoto() {
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Arquivos de Imagem", "jpg", "jpeg", "png", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File arquivoSelecionado = chooser.getSelectedFile();
-            return arquivoSelecionado;
-        }
-        return null;
-    }
-    
 }

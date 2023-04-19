@@ -4,8 +4,8 @@ import java.io.IOException;
 import javax.swing.*;
 
 import controller.GerenciadorUsuarios;
-import ui.GuiLogin;
-import ui.GuiTelaCadastroUsuario;
+import ui.telasDeEntrada.GuiLogin;
+import ui.telasDeEntrada.GuiTelaCadastroUsuario;
 
 public class Sistema {
     
