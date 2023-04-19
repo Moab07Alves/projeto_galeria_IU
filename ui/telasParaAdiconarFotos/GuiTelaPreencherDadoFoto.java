@@ -41,24 +41,25 @@ public class GuiTelaPreencherDadoFoto extends JFrame{
 
     public void inicializarComponentes() {
         setTitle("Tela para preencher dados da foto");
-        setBounds(0, 0, 400, 500);
+        setBounds(0, 0, 800, 600);
         setLayout(null);
         painel = new JPanel();
         painel.setLayout(null);
-        painel.setBounds(0, 0, 400, 500);
+        painel.setBounds(0, 0, 800, 600);
         lbDescricao = new JLabel("Descrição:");
-        lbDescricao.setBounds(80, 295, 80, 30);
+        lbDescricao.setBounds(235, 425, 80, 30);
         tfDescricao = new JTextField(10);
-        tfDescricao.setBounds(150, 300, 200, 25);
+        tfDescricao.setBounds(300, 430, 200, 25);
         lbData = new JLabel("Data:");
-        lbData.setBounds(115, 340, 80, 25);
+        lbData.setBounds(260, 460, 80, 25);
         tfData = new JTextField(10);
-        tfData.setBounds(150, 340, 100, 25);
+        tfData.setBounds(300, 460, 100, 25);
         jbSalvar = new JButton("Salvar");
-        jbSalvar.setBounds(150, 400, 100, 25);
+        jbSalvar.setBounds(300, 510, 100, 25);
         image = new ImageIcon(pathFotoSelecionada);
+        image.setImage(image.getImage().getScaledInstance(650, 400, 1));
         lbimage = new JLabel(image);
-        lbimage.setBounds(0, 0, 400, 300);
+        lbimage.setBounds(75, 10, 650, 400);
         painel.add(lbimage);
         painel.add(lbDescricao);
         painel.add(tfDescricao);

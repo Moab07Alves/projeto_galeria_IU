@@ -59,13 +59,13 @@ public class GuiSelecionarFotosRemover extends JFrame{
         sp.setBounds(10, 20, 200, getHeight() - 75);
         imagem1 = new ImageIcon();
         lbImagem = new JLabel(imagem1);
-        lbImagem.setBounds(300, 30, 200,200);
+        lbImagem.setBounds(280, 30, 270,200);
         jbexcluirFoto = new JButton("Excluir foto");
         jbexcluirFoto.setBounds(350, 245, 100, 25);
         jbexcluirFoto.setVisible(false);
-        jbexcluirFoto.setBounds(420, 245, 100, 25);
+        jbexcluirFoto.setBounds(430, 245, 100, 25);
         jbVoltar = new JButton("Voltar");
-        jbVoltar.setBounds(280, 245, 100, 25);
+        jbVoltar.setBounds(300, 245, 100, 25);
         telaFotos.add(jbexcluirFoto);
         telaFotos.add(sp);
         telaFotos.add(lbImagem);
@@ -79,6 +79,7 @@ public class GuiSelecionarFotosRemover extends JFrame{
                 try {
                     fotoSelecionada = gerenciador.getUsuario(usuario.getLogin()).   procurarGaleriaPorTitulo(tituloGaleriaSelecionada).getFoto(String.valueOf  (lsFotos.getSelectedValue()));
                     imagem1 = new ImageIcon(fotoSelecionada.getPathFoto());
+                    imagem1.setImage(imagem1.getImage().getScaledInstance(270, 200, 1));
                     lbImagem.setIcon(imagem1);
                     jbexcluirFoto.setVisible(true);
                 } catch (Exception x) {

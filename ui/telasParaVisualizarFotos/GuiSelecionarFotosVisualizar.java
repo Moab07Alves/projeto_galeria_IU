@@ -59,7 +59,7 @@ public class GuiSelecionarFotosVisualizar extends JFrame{
         sp.setBounds(10, 20, 200, getHeight() - 75);
         imagem1 = new ImageIcon();
         lbImagem = new JLabel(imagem1);
-        lbImagem.setBounds(300, 30, 200,200);
+        lbImagem.setBounds(280, 30, 270,200);
         jbabir = new JButton("Abrir foto");
         jbabir.setBounds(350, 245, 100, 25);
         jbabir.setVisible(false);
@@ -79,6 +79,7 @@ public class GuiSelecionarFotosVisualizar extends JFrame{
                 try {
                     fotoSelecionada = gerenciador.getUsuario(usuario.getLogin()).   procurarGaleriaPorTitulo(tituloGaleriaSelecionada).getFoto(String.valueOf  (lsFotos.getSelectedValue()));
                     imagem1 = new ImageIcon(fotoSelecionada.getPathFoto());
+                    imagem1.setImage(imagem1.getImage().getScaledInstance(270, 200, 1));
                     lbImagem.setIcon(imagem1);
                     jbabir.setVisible(true);
                 } catch (Exception x) {

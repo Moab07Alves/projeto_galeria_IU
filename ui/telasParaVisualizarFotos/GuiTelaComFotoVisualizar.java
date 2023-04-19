@@ -51,8 +51,9 @@ public class GuiTelaComFotoVisualizar extends JFrame{
         jbvoltar = new JButton("Voltar");
         jbvoltar.setBounds(325, 525, 100, 25);
         imagem = new ImageIcon(fotoSelecionada.getPathFoto());
+        imagem.setImage(imagem.getImage().getScaledInstance(650, 425, 1));
         lbimagem = new JLabel(imagem);
-        lbimagem.setBounds(0, 0, 800, 600);
+        lbimagem.setBounds(75, 90, 650, 425);
         painel.add(lbimagem);
         painel.add(jbvoltar);
         painel.add(lbDescricao);
